@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { EstablishmentService } from './establishment.service';
+import { Establishment } from './establishment/establishment.model';
+
 
 @Component({
   selector: 'app-root',
@@ -6,5 +9,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'HuntsvilleFood.Frontend';
+  constructor(private establishmentService: EstablishmentService) {
+
+  }
+
+  title = 'Huntsville Restaurant Ratings';  
+  establishments: Establishment[] = [];
+
+  async onKeyUpEvent(event: any) {
+    this.establishments = [];
+    this.establishmentService.searchForEstablishments(event.target.value).subscribe(values => {
+      this.establishments = values;
+    });
+  }
 }
