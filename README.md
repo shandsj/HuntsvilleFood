@@ -21,9 +21,9 @@ flowchart LR
     alexaSkill --REST--> healthRatingService
     websiteBackend --REST--> healthRatingService
     
-    searchService --> searchDatabase[(Indexed\nData)]
+    searchService --> searchDatabase[(Data)]
     
-    scraperService --REST--> searchService
+    scraperService --> searchDatabase
     
     healthRatingService --REST--> searchService
     
