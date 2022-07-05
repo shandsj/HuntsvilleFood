@@ -1,8 +1,8 @@
 const fs = require('fs');
 const Nightmare = require('nightmare');
-const nightmare = Nightmare({ show: true });
+const { exit } = require('process');
+const nightmare = Nightmare({ show: false });
 
-console.log("Sending HTTP request...");
 nightmare
   .on('console', (log, msg) => {
     console.log(msg)
@@ -60,8 +60,11 @@ nightmare
 
     return ratings;
   })
-  .end()
-  .then(data => fs.writeFileSync('data.json', JSON.stringify(data)))
+  .then(data => {
+    console.log(JSON.stringify(data));
+    nightmare.end();
+    exit(1);
+  })
   .catch(error => {
     console.error('Search failed:', error)
   });
